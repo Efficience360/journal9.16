@@ -3,108 +3,53 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Intentions & Célébrations — 9/16</title>
+  <title>Intentions illimitées & Célébrations — 9/16</title>
   <meta name="theme-color" content="#111827" />
   <style>
-    /* ====== Reset & base ====== */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background: #0b0f1a; color: #e5e7eb; display: grid; place-items: center; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; background: #0b0f1a; color: #e5e7eb; display: grid; place-items: center; }
 
-    /* ====== 9:16 frame ====== */
-    .frame {
-      position: relative;
-      width: min(100vw, calc(100dvh * 9 / 16));
-      height: min(100dvh, calc(100vw * 16 / 9));
-      aspect-ratio: 9 / 16;
-      background: radial-gradient(120% 120% at 10% 0%, #1f2a44 0%, #101623 45%, #0b0f1a 100%);
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.06);
-      overflow: hidden;
-    }
-
-    /* Safe-area padding */
+    .frame { position: relative; width: min(100vw, calc(100dvh * 9 / 16)); height: min(100dvh, calc(100vw * 16 / 9)); aspect-ratio: 9/16; background: radial-gradient(120% 120% at 10% 0%, #1f2a44 0%, #101623 45%, #0b0f1a 100%); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.06); overflow: hidden; }
     .pad { padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 10px; }
-
     header, footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-
-    header .title { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.2px; }
-    header .title .logo { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, #60a5fa, #34d399); color: #0b0f1a; font-weight: 900; }
-
+    header .title { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+    header .logo { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, #60a5fa, #34d399); color: #0b0f1a; font-weight: 900; }
     .date-nav { display: flex; align-items: center; gap: 8px; font-size: 14px; }
     .icon-btn { border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: #e5e7eb; border-radius: 14px; padding: 8px 10px; display: inline-grid; place-items: center; cursor: pointer; transition: transform .06s ease, background .2s ease, border .2s ease; }
-    .icon-btn:active { transform: translateY(1px) scale(0.98); }
-
+    .icon-btn:active { transform: translateY(1px) scale(.98); }
     main { overflow: auto; scrollbar-width: thin; scrollbar-color: #3b4254 transparent; display: grid; gap: 12px; padding: 2px 2px 4px; }
-
     section { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); border-radius: 20px; padding: 14px; display: grid; gap: 10px; }
     h2 { margin: 0; font-size: 16px; letter-spacing: .2px; }
     p { margin: 0; }
-
     .affirmation { background: linear-gradient(180deg, rgba(99,102,241,.16), rgba(59,130,246,.10) 30%, rgba(255,255,255,0.03)); }
     .affirmation .big { font-size: 18px; font-weight: 700; line-height: 1.2; }
     .affirmation .sub { opacity: .8; font-size: 13px; }
-
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    input[type="text"], textarea {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(17,24,39,.6);
-      color: #f3f4f6;
-      border-radius: 14px;
-      padding: 12px 12px;
-      outline: none;
-      font-size: 14px;
-    }
+    .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    input[type=text], textarea { width: 100%; border: 1px solid rgba(255,255,255,0.12); background: rgba(17,24,39,.6); color: #f3f4f6; border-radius: 14px; padding: 12px 12px; outline: none; font-size: 14px; }
     textarea { resize: none; min-height: 64px; }
-
     .primary { background: linear-gradient(135deg, #34d399, #60a5fa); border: none; color: #0b0f1a; font-weight: 800; }
     .ghost { background: rgba(255,255,255,0.04); }
     .danger { background: linear-gradient(135deg, #f43f5e, #fb7185); border: none; color: #0b0f1a; font-weight: 800; }
-
     .pill { font-size: 12px; padding: 6px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
-
     ul.clean { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-    .tag { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.10); }
-
+    .tag { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; font-size: 13px; padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.10); }
     .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); padding: 12px; border-radius: 16px; display: grid; gap: 4px; }
     .stat .label { font-size: 12px; opacity: .7; }
     .stat .value { font-size: 18px; font-weight: 800; }
-
-    .breath {
-      display: grid; place-items: center; gap: 10px;
-    }
-    .bubble {
-      width: 90px; height: 90px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.16), rgba(255,255,255,0.02));
-      display: grid; place-items: center; font-weight: 700; letter-spacing: .3px; transition: transform 3s ease-in-out;
-    }
-
+    .breath { display: grid; place-items: center; gap: 10px; }
+    .bubble { width: 90px; height: 90px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.15); background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.16), rgba(255,255,255,0.02)); display: grid; place-items: center; font-weight: 700; letter-spacing: .3px; transition: transform 3s ease-in-out; }
     .toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .toolbar .icon-btn { padding: 8px 12px; }
-
     footer { opacity: .9; }
-
-    /* Confetti */
     .confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .confetti i { position: absolute; width: 8px; height: 14px; top: -10px; opacity: 0.85; border-radius: 2px; animation: fall 1200ms linear forwards; }
-    @keyframes fall { to { transform: translateY(120% ) rotate(720deg); opacity: 1; } }
-
-    /* Tiny toast */
+    .confetti i { position: absolute; width: 8px; height: 14px; top: -10px; opacity: .85; border-radius: 2px; animation: fall 1200ms linear forwards; }
+    @keyframes fall { to { transform: translateY(120%) rotate(720deg); opacity: 1; } }
     .toast { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(17,24,39,.9); color: #e5e7eb; border: 1px solid rgba(255,255,255,.12); padding: 10px 12px; border-radius: 12px; font-size: 13px; box-shadow: 0 8px 30px rgba(0,0,0,.4); }
-
     .subtle { opacity: .8; font-size: 12px; }
-
-    /* Background image overlay */
     .bg { position: absolute; inset: 0; background-position: center; background-size: cover; filter: saturate(1.05) brightness(.82); opacity: .38; }
     .bg::after { content: ""; position: absolute; inset: 0; backdrop-filter: blur(4px); }
-
-    /* Small screens polish */
-    @media (max-width: 380px) {
-      h2 { font-size: 15px; }
-      .stat .value { font-size: 16px; }
-      .bubble { width: 80px; height: 80px; }
-    }
+    @media (max-width: 380px) { h2 { font-size: 15px; } .stat .value { font-size: 16px; } .bubble { width: 80px; height: 80px; } }
   </style>
 </head>
 <body>
@@ -112,10 +57,7 @@
     <div class="bg" id="bg"></div>
     <div class="pad">
       <header>
-        <div class="title">
-          <div class="logo">✨</div>
-          <div>Intentions & Célébrations</div>
-        </div>
+        <div class="title"><div class="logo">✨</div><div>Intentions & Célébrations</div></div>
         <div class="date-nav">
           <button class="icon-btn" id="prevDay" title="Jour précédent">◀</button>
           <div id="dateLabel">—</div>
@@ -126,18 +68,19 @@
       <main>
         <section class="affirmation">
           <div class="big" id="affirmationText">Aujourd'hui, je choisis le focus qui m'élève.</div>
-          <div class="sub" id="affirmationSub">Rappel: 2 intentions, un sourire, et on y va 🚀</div>
+          <div class="sub" id="affirmationSub">Rappel: ajoute tes intentions au fil du jour 🚀</div>
         </section>
 
         <section>
-          <h2>🧭 Mes 2 intentions du jour</h2>
+          <h2>🧭 Intentions du jour (illimitées)</h2>
           <div class="row">
-            <input id="intent1" type="text" maxlength="140" placeholder="Intention 1 (ex: avancer 30 min sur mon projet)" />
-            <input id="intent2" type="text" maxlength="140" placeholder="Intention 2 (ex: prendre des nouvelles d’un client)" />
+            <input id="intentionNew" type="text" maxlength="140" placeholder="Ajouter une intention (ex: tourner 1 reel, écrire 5 lignes)…" />
+            <button class="icon-btn primary" id="addIntention">Ajouter ➕</button>
           </div>
+          <ul class="clean" id="intentionList"></ul>
           <div class="toolbar">
-            <button class="icon-btn primary" id="saveIntents">Manifester ✅</button>
-            <span class="pill" id="statusPill">Non complété</span>
+            <span class="pill" id="statusPill">En cours</span>
+            <button class="icon-btn ghost" id="markAllDone">Tout cocher ✔</button>
           </div>
         </section>
 
@@ -165,14 +108,8 @@
         <section>
           <h2>📊 Progression</h2>
           <div class="stats">
-            <div class="stat">
-              <div class="label">🔥 Streak</div>
-              <div class="value" id="streakValue">0</div>
-            </div>
-            <div class="stat">
-              <div class="label">✅ Jours complétés (mois)</div>
-              <div class="value" id="monthCount">0</div>
-            </div>
+            <div class="stat"><div class="label">🔥 Streak</div><div class="value" id="streakValue">0</div></div>
+            <div class="stat"><div class="label">✅ Jours complétés (mois)</div><div class="value" id="monthCount">0</div></div>
           </div>
         </section>
 
@@ -201,9 +138,10 @@
 (function(){
   const $ = (id) => document.getElementById(id);
   const dateLabel = $('dateLabel');
-  const intent1 = $('intent1');
-  const intent2 = $('intent2');
-  const saveIntents = $('saveIntents');
+  const intentionNew = $('intentionNew');
+  const addIntention = $('addIntention');
+  const intentionList = $('intentionList');
+  const markAllDone = $('markAllDone');
   const statusPill = $('statusPill');
   const celebrationInput = $('celebrationInput');
   const addCelebration = $('addCelebration');
@@ -225,24 +163,20 @@
   const bgUpload = $('bgUpload');
   const resetBg = $('resetBg');
 
-  const STORE_PREFIX = 'ic9_';
+  const STORE_PREFIX = 'ic9_v2_';
   let current = stripTime(new Date());
 
-  // ===== Helpers =====
   function stripTime(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   function keyFor(d){ return STORE_PREFIX + d.toISOString().slice(0,10); }
-  function getLocaleDate(d){
-    return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long'});
-  }
+  function getLocaleDate(d){ return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long'}); }
   function setStatus(completed){
-    statusPill.textContent = completed ? 'Complété 🎯' : 'Non complété';
+    statusPill.textContent = completed ? 'Jour validé 🎯' : 'En cours';
     statusPill.style.background = completed ? 'linear-gradient(135deg, #34d399, #60a5fa)' : 'rgba(255,255,255,0.04)';
     statusPill.style.color = completed ? '#0b0f1a' : '#e5e7eb';
     statusPill.style.border = completed ? 'none' : '1px solid rgba(255,255,255,0.12)';
   }
   function showToast(msg){ toast.textContent = msg; toast.style.display = 'block'; clearTimeout(showToast.t); showToast.t = setTimeout(()=>toast.style.display='none', 1800); }
 
-  // ===== Affirmations =====
   const AFFIRMATIONS = [
     "Je crée avant d'avoir peur.",
     "Chaque pas compte, surtout le mien.",
@@ -251,228 +185,128 @@
     "J'honore le progrès, pas la perfection.",
     "Mon énergie attire les bonnes opportunités.",
     "Je transforme l'intention en action.",
-    "Aujourd'hui, je joue pour gagner." ,
+    "Aujourd'hui, je joue pour gagner.",
     "Je suis la preuve que c'est possible.",
     "Je laisse simple, clair, efficace.",
     "Je célèbre le chemin autant que le résultat.",
-    "Je choisis la constance plutôt que l'excuse." 
+    "Je choisis la constance plutôt que l'excuse."
   ];
   function pickAffirmation(d){
-    // Hash simple basé sur la date (stable par jour)
     const s = d.toISOString().slice(0,10);
     let h = 0; for (let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) >>> 0; }
-    const idx = h % AFFIRMATIONS.length;
-    return AFFIRMATIONS[idx];
+    return AFFIRMATIONS[h % AFFIRMATIONS.length];
   }
 
-  // ===== Storage Model =====
   function readDay(d){
     const raw = localStorage.getItem(keyFor(d));
-    if(!raw) return { i1: '', i2: '', c: [], done: false };
-    try { return JSON.parse(raw); } catch { return { i1: '', i2: '', c: [], done: false }; }
+    let data = { ints: [], c: [], done: false };
+    if(raw){ try { data = JSON.parse(raw); } catch { /* ignore */ } }
+    data.ints = Array.isArray(data.ints) ? data.ints : [];
+    data.c = Array.isArray(data.c) ? data.c : [];
+    return data;
   }
-  function writeDay(d, data){
-    localStorage.setItem(keyFor(d), JSON.stringify(data));
-  }
+  function writeDay(d, data){ localStorage.setItem(keyFor(d), JSON.stringify(data)); }
 
   function computeDone(data){
-    return (!!data.i1 && !!data.i2) || (data.c && data.c.length > 0);
+    // "Validé" si au moins 2 intentions existent OU au moins 1 célébration
+    return (data.ints && data.ints.length >= 2) || (data.c && data.c.length > 0);
   }
 
   function renderDay(){
     dateLabel.textContent = getLocaleDate(current);
     const data = readDay(current);
-    intent1.value = data.i1 || '';
-    intent2.value = data.i2 || '';
+    renderIntentions(data.ints || []);
     renderCelebrations(data.c || []);
     setStatus(computeDone(data));
-    // Affirmation
     affirmationText.textContent = pickAffirmation(current);
-    affirmationSub.textContent = current.toDateString() === stripTime(new Date()).toDateString() ?
-      'Rappel: 2 intentions, un sourire, et on y va 🚀' : 'Vue du ' + getLocaleDate(current);
-    // Stats
+    affirmationSub.textContent = current.toDateString() === stripTime(new Date()).toDateString() ? 'Rappel: ajoute tes intentions au fil du jour 🚀' : 'Vue du ' + getLocaleDate(current);
     updateStats();
   }
 
   function renderCelebrations(list){
     celebrationList.innerHTML = '';
     list.forEach((txt, idx)=>{
-      const li = document.createElement('li');
-      li.className = 'tag';
-      const span = document.createElement('span');
-      span.textContent = '✨ ' + txt;
-      const del = document.createElement('button');
-      del.className = 'icon-btn';
-      del.textContent = '✖';
-      del.title = 'Retirer';
-      del.onclick = () => { removeCelebration(idx); };
-      li.appendChild(span);
-      li.appendChild(del);
-      celebrationList.appendChild(li);
+      const li = document.createElement('li'); li.className = 'tag';
+      const span = document.createElement('span'); span.textContent = '✨ ' + txt;
+      const del = document.createElement('button'); del.className = 'icon-btn'; del.textContent = '✖'; del.title = 'Retirer'; del.onclick = () => { removeCelebration(idx); };
+      li.appendChild(span); li.appendChild(del); celebrationList.appendChild(li);
     });
   }
 
-  function removeCelebration(idx){
-    const data = readDay(current);
-    if(!data.c) data.c = [];
-    data.c.splice(idx,1);
-    data.done = computeDone(data);
-    writeDay(current, data);
-    renderDay();
+  function renderIntentions(ints){
+    intentionList.innerHTML = '';
+    ints.forEach((item, idx)=>{
+      const li = document.createElement('li'); li.className = 'tag';
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!item.done; cb.onchange = () => toggleIntention(idx, cb.checked);
+      const txt = document.createElement('span'); txt.contentEditable = 'true'; txt.spellcheck = false; txt.textContent = item.t || ''; txt.onblur = () => editIntention(idx, txt.textContent.trim());
+      const del = document.createElement('button'); del.className = 'icon-btn'; del.textContent = '✖'; del.title = 'Supprimer'; del.onclick = () => removeIntention(idx);
+      li.appendChild(cb); li.appendChild(txt); li.appendChild(del); intentionList.appendChild(li);
+    });
   }
 
-  function shootConfetti(){
-    const colors = ['#60a5fa','#34d399','#f59e0b','#f472b6','#a78bfa','#fb7185'];
-    for(let i=0;i<40;i++){
-      const p = document.createElement('i');
-      p.style.left = Math.random()*100+'%';
-      p.style.background = colors[Math.floor(Math.random()*colors.length)];
-      p.style.transform = `translateY(-10px) rotate(${Math.random()*360}deg)`;
-      p.style.animationDuration = (900 + Math.random()*700) + 'ms';
-      confetti.appendChild(p);
-      setTimeout(()=>p.remove(), 1500);
-    }
-  }
-
-  // ===== Stats =====
   function updateStats(){
-    // Streak = jours consécutifs complétés jusqu'à aujourd'hui
     let s = 0; let d = stripTime(new Date());
-    while(true){
-      const data = readDay(d);
-      if(computeDone(data)) { s++; d = new Date(d.getFullYear(), d.getMonth(), d.getDate()-1); }
-      else break;
-    }
+    while(true){ const data = readDay(d); if(computeDone(data)) { s++; d = new Date(d.getFullYear(), d.getMonth(), d.getDate()-1); } else break; }
     streakValue.textContent = s;
-
-    // Count for current month
-    const now = stripTime(new Date());
-    const first = new Date(now.getFullYear(), now.getMonth(), 1);
-    const nextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
-    let count = 0;
-    for(let dt = new Date(first); dt < nextMonth; dt.setDate(dt.getDate()+1)){
-      if(computeDone(readDay(dt))) count++;
-    }
+    const now = stripTime(new Date()); const first = new Date(now.getFullYear(), now.getMonth(), 1); const nextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
+    let count = 0; for(let dt = new Date(first); dt < nextMonth; dt.setDate(dt.getDate()+1)){ if(computeDone(readDay(dt))) count++; }
     monthCount.textContent = count;
   }
 
-  // ===== Share =====
   function buildShareText(){
-    const data = readDay(current);
-    const dt = getLocaleDate(current);
-    const lines = [
-      `📅 ${dt}`,
-      data.i1 ? `• Intention 1: ${data.i1}` : '',
-      data.i2 ? `• Intention 2: ${data.i2}` : '',
-      ...(data.c||[]).map((t,i)=>`• Réussite ${i+1}: ${t}`)
-    ].filter(Boolean);
+    const data = readDay(current); const dt = getLocaleDate(current);
+    const lines = [ `📅 ${dt}`, ...(data.ints||[]).map((it,i)=>`• Intention ${i+1}${it.done?' ✅':''}: ${it.t}`), ...(data.c||[]).map((t,i)=>`• Réussite ${i+1}: ${t}`) ].filter(Boolean);
     return `Intentions & Célébrations\n` + lines.join('\n');
   }
-
   async function share(){
     const text = buildShareText();
-    if(navigator.share){
-      try { await navigator.share({ text, title: 'Intentions & Célébrations' }); showToast('Partagé ✔'); }
-      catch(e){ if(e && e.name !== 'AbortError') { navigator.clipboard?.writeText(text); showToast('Copié dans le presse-papiers'); } }
-    } else if(navigator.clipboard){
-      await navigator.clipboard.writeText(text);
-      showToast('Copié dans le presse-papiers');
-    } else {
-      showToast('Sélectionne et copie le texte');
-    }
+    if(navigator.share){ try { await navigator.share({ text, title: 'Intentions & Célébrations' }); showToast('Partagé ✔'); }
+      catch(e){ if(e && e.name !== 'AbortError') { navigator.clipboard?.writeText(text); showToast('Copié dans le presse-papiers'); } } }
+    else if(navigator.clipboard){ await navigator.clipboard.writeText(text); showToast('Copié dans le presse-papiers'); }
+    else { showToast('Sélectionne et copie le texte'); }
   }
 
-  // ===== Breathing routine =====
+  // Intentions API
+  function toggleIntention(idx, checked){ const data = readDay(current); if(!data.ints) return; data.ints[idx].done = !!checked; data.done = computeDone(data); writeDay(current, data); setStatus(data.done); }
+  function editIntention(idx, text){ const data = readDay(current); if(!data.ints) return; data.ints[idx].t = text; writeDay(current, data); }
+  function removeIntention(idx){ const data = readDay(current); if(!data.ints) return; data.ints.splice(idx,1); data.done = computeDone(data); writeDay(current, data); renderDay(); }
+
+  // Celebrations API
+  function removeCelebration(idx){ const data = readDay(current); if(!data.c) data.c = []; data.c.splice(idx,1); data.done = computeDone(data); writeDay(current, data); renderDay(); }
+
+  // Confetti
+  function shootConfetti(){ const colors = ['#60a5fa','#34d399','#f59e0b','#f472b6','#a78bfa','#fb7185']; for(let i=0;i<40;i++){ const p = document.createElement('i'); p.style.left = Math.random()*100+'%'; p.style.background = colors[Math.floor(Math.random()*colors.length)]; p.style.transform = `translateY(-10px) rotate(${Math.random()*360}deg)`; p.style.animationDuration = (900 + Math.random()*700) + 'ms'; confetti.appendChild(p); setTimeout(()=>p.remove(), 1500); } }
+
+  // Breath
   let breathInt = null; let countdownInt = null;
   function startBreathing(){
-    stopBreathing();
-    let phase = 0; // 0 inspire, 1 hold, 2 expire, 3 hold
-    let timeLeft = 60; breathTimer.textContent = '60s';
-    const phases = [
-      { label: 'Inspire', scale: 1.0, dur: 4000 },
-      { label: 'Garde',   scale: 1.0, dur: 1500 },
-      { label: 'Expire',  scale: 0.82, dur: 4000 },
-      { label: 'Garde',   scale: 0.82, dur: 1500 },
-    ];
-    function step(){
-      const p = phases[phase];
-      bubble.textContent = p.label;
-      bubble.style.transitionDuration = p.dur+'ms';
-      bubble.style.transform = `scale(${p.scale})`;
-      phase = (phase + 1) % phases.length;
-      breathInt = setTimeout(step, p.dur);
-    }
-    step();
-    countdownInt = setInterval(()=>{
-      timeLeft--; breathTimer.textContent = timeLeft+'s';
-      if(timeLeft<=0){ stopBreathing(); breathTimer.textContent = 'Fini ✨'; showToast('Respiration terminée'); }
-    }, 1000);
+    stopBreathing(); let phase = 0; let timeLeft = 60; breathTimer.textContent = '60s';
+    const phases = [ { label: 'Inspire', scale: 1.0, dur: 4000 }, { label: 'Garde', scale: 1.0, dur: 1500 }, { label: 'Expire', scale: 0.82, dur: 4000 }, { label: 'Garde', scale: 0.82, dur: 1500 } ];
+    function step(){ const p = phases[phase]; bubble.textContent = p.label; bubble.style.transitionDuration = p.dur+'ms'; bubble.style.transform = `scale(${p.scale})`; phase = (phase + 1) % phases.length; breathInt = setTimeout(step, p.dur); }
+    step(); countdownInt = setInterval(()=>{ timeLeft--; breathTimer.textContent = timeLeft+'s'; if(timeLeft<=0){ stopBreathing(); breathTimer.textContent = 'Fini ✨'; showToast('Respiration terminée'); } }, 1000);
   }
-  function stopBreathing(){
-    clearTimeout(breathInt); clearInterval(countdownInt);
-    bubble.style.transform = 'scale(0.9)'; bubble.textContent = 'Inspire';
-  }
+  function stopBreathing(){ clearTimeout(breathInt); clearInterval(countdownInt); bubble.style.transform = 'scale(0.9)'; bubble.textContent = 'Inspire'; }
 
-  // ===== Background image =====
+  // Background image
   const BG_KEY = STORE_PREFIX + 'bg';
-  function loadBg(){
-    const dataUrl = localStorage.getItem(BG_KEY);
-    if(dataUrl){ bg.style.backgroundImage = `url(${dataUrl})`; bg.style.display = 'block'; }
-    else { bg.style.backgroundImage = ''; bg.style.display = 'none'; }
-  }
+  function loadBg(){ const dataUrl = localStorage.getItem(BG_KEY); if(dataUrl){ bg.style.backgroundImage = `url(${dataUrl})`; bg.style.display = 'block'; } else { bg.style.backgroundImage = ''; bg.style.display = 'none'; } }
 
-  // ===== Events =====
-  saveIntents.onclick = () => {
-    const data = readDay(current);
-    data.i1 = (intent1.value||'').trim();
-    data.i2 = (intent2.value||'').trim();
-    data.done = computeDone(data);
-    writeDay(current, data);
-    setStatus(data.done);
-    if(data.done) { shootConfetti(); showToast('Intentions enregistrées'); }
-    updateStats();
-  };
+  // Events
+  addIntention.onclick = () => { const txt = (intentionNew.value||'').trim(); if(!txt) return showToast('Écris d\'abord ton intention ✍️'); const data = readDay(current); data.ints = data.ints || []; data.ints.unshift({ t: txt, done: false }); data.done = computeDone(data); writeDay(current, data); intentionNew.value = ''; renderDay(); showToast('Intention ajoutée'); };
+  markAllDone.onclick = () => { const data = readDay(current); (data.ints||[]).forEach(i=> i.done = true); data.done = computeDone(data); writeDay(current, data); renderDay(); };
 
-  addCelebration.onclick = () => {
-    const txt = (celebrationInput.value||'').trim();
-    if(!txt) return showToast('Rien à ajouter 😉');
-    const data = readDay(current); if(!data.c) data.c = [];
-    data.c.unshift(txt); // le plus récent en premier
-    data.done = computeDone(data);
-    writeDay(current, data);
-    celebrationInput.value = '';
-    renderDay();
-    shootConfetti();
-    showToast('On célèbre ! 🎉');
-  };
-
-  clearDayBtn.onclick = () => {
-    if(confirm('Effacer toutes les données de cette date ?')){
-      localStorage.removeItem(keyFor(current));
-      renderDay();
-      showToast('Jour réinitialisé');
-    }
-  };
+  addCelebration.onclick = () => { const txt = (celebrationInput.value||'').trim(); if(!txt) return showToast('Rien à ajouter 😉'); const data = readDay(current); data.c = data.c || []; data.c.unshift(txt); data.done = computeDone(data); writeDay(current, data); celebrationInput.value = ''; renderDay(); shootConfetti(); showToast('On célèbre ! 🎉'); };
+  clearDayBtn.onclick = () => { if(confirm('Effacer toutes les données de cette date ?')){ localStorage.removeItem(keyFor(current)); renderDay(); showToast('Jour réinitialisé'); } };
 
   prevDay.onclick = () => { current.setDate(current.getDate()-1); renderDay(); };
   nextDay.onclick = () => { current.setDate(current.getDate()+1); renderDay(); };
   shareDay.onclick = share;
   startBreath.onclick = startBreathing;
 
-  bgUpload.onchange = async (e) => {
-    const file = e.target.files?.[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = () => { localStorage.setItem(BG_KEY, reader.result); loadBg(); showToast('Fond appliqué'); };
-    reader.readAsDataURL(file);
-  };
+  bgUpload.onchange = async (e) => { const file = e.target.files?.[0]; if(!file) return; const reader = new FileReader(); reader.onload = () => { localStorage.setItem(BG_KEY, reader.result); loadBg(); showToast('Fond appliqué'); }; reader.readAsDataURL(file); };
   resetBg.onclick = () => { localStorage.removeItem(BG_KEY); loadBg(); showToast('Fond réinitialisé'); };
 
-  // ===== Init =====
-  function init(){
-    loadBg();
-    renderDay();
-  }
+  function init(){ loadBg(); renderDay(); }
   init();
 })();
 </script>
